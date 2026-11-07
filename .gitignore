@@ -1,0 +1,47 @@
+# --- 数据 / 缓存 / 大文件（不入库）---
+data/
+cache/
+output/
+outputs/*
+# 保留最终图表产出（主图/构成图/敏感性图）
+!outputs/figures/
+chrunks/
+chrunks_50/
+chrunks_100/
+chrunks_500/
+sequence.fasta
+*.fasta
+*.npz
+*.tar.gz
+*.zip
+
+# --- Python ---
+.venv/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# --- IDE ---
+.idea/
+
+# --- 工具目录（第三方软件/依赖）---
+FigTree v1.4.4/
+Mpox_global/
+MutTui/
+iqtree-3.0.1-Windows/
+squirrel/
+network_analysis/
+
+# --- 工作区元数据 ---
+.workbuddy/
+.workbuddy-ai/
+codex_handoff_backup/
+
+# --- 杂项 ---
+3.8
+*.log
+
+# --- 冗余/备份脚本（与主线重复）---
+main-CHINAMI-BTTF8EV.py
+main_before_calibration.py
