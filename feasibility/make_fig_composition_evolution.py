@@ -23,7 +23,13 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-TRAJ = os.path.join(ROOT, "outputs", "v4_daily_trajectory")
+# Data directory: default to the final v7 daily trajectory; override with --traj.
+import argparse as _ap
+_parser = _ap.ArgumentParser(add_help=False)
+_parser.add_argument("--traj", default=None)
+_args, _ = _parser.parse_known_args()
+TRAJ = os.path.join(ROOT, "outputs",
+                    _args.traj if _args.traj else "v7_daily_trajectory")
 SUMMARY = os.path.join(TRAJ, "daily_trajectory_summary_by_day.csv")
 LONG = os.path.join(TRAJ, "daily_trajectory_long.csv")
 OUTDIR = os.path.join(ROOT, "outputs", "figures")

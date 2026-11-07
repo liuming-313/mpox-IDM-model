@@ -92,14 +92,22 @@ def run_seed(seed: int, pop_size: int, sim_days: int) -> dict:
              test_seek_delay_mean_days=4.5, test_seek_delay_sd_days=2.5, lab_turnaround_days=2),
     ]
 
+    # Sustained-importation ignition (matches main.py / validate_importation_30seed.py):
+    # zero day-0 seed + four-phase importation 1/2/4/1 cases/day.
+    importations = [
+        dict(start=15, end=44, daily_n=1),
+        dict(start=45, end=74, daily_n=2),
+        dict(start=75, end=104, daily_n=4),
+        dict(start=105, end=134, daily_n=1),
+    ]
     pop = Population(n=pop_size, params=params, seed=seed, cache_label=f"traj_new_{seed}",
-                     policy=policy, importations=[])
+                     policy=policy, importations=importations)
     g, o, mcp = pop.genders, pop.orientations, pop.mcp_flags
     mask = (g == 0) & (o == "homo") & mcp
     pop.importation_mask = mask
     np.random.seed(seed)
     pop._rng = np.random.default_rng(seed)
-    pop.seed_infection(_main.INITIAL_INFECTIONS, mask=mask)
+    # NO seed_infection (seed0 scheme)
     pop.run_simulation(sim_days)
 
     T = int(min(len(getattr(pop, "daily_new_diagnoses", [])),
